@@ -2,7 +2,7 @@
 
 namespace ManagedLibnfc
 {
-    public class Class1
+    public class NfcContext
     {
     }
 }
