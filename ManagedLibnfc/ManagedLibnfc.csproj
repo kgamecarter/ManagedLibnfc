@@ -2,6 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>kgame</Authors>
+    <Company>kgame SOFT</Company>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageProjectUrl>https://github.com/kgamecarter/ManagedLibnfc</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/kgamecarter/ManagedLibnfc</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Description>.NET Wrapper for libnfc Library</Description>
+    <PackageLicenseUrl>http://nfc-tools.org/index.php/GNU_Lesser_General_Public_License</PackageLicenseUrl>
   </PropertyGroup>
 
 </Project>
