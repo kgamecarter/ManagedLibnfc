@@ -50,5 +50,14 @@ namespace ManagedLibnfc.PInvoke
         /// <param name="pnd">NfcDevice struct pointer that represent currently used device</param>
         [DllImport("libnfc", EntryPoint = "nfc_close", CallingConvention = CallingConvention.Cdecl)]
         public static extern void NfcClose(IntPtr pnd);
+        
+        [DllImport("libnfc", EntryPoint = "nfc_version", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+        private static extern IntPtr _Version();
+
+        /// <summary>
+        /// Returns the library version
+        /// </summary>
+        /// <returns>Returns a string with the library version</returns>
+        public static string Version() => Marshal.PtrToStringAnsi(_Version());
     }
 }
