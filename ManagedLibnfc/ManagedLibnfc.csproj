@@ -10,7 +10,7 @@
     <RepositoryType>git</RepositoryType>
     <Description>.NET Wrapper for libnfc Library</Description>
     <PackageLicenseUrl>http://nfc-tools.org/index.php/GNU_Lesser_General_Public_License</PackageLicenseUrl>
-    <Version>0.0.0</Version>
+    <Version>1.0.0</Version>
     <PackageTags>libnfc native</PackageTags>
   </PropertyGroup>
 
