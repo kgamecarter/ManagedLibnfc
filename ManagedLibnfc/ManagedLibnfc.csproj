@@ -10,13 +10,17 @@
     <RepositoryType>git</RepositoryType>
     <Description>.NET Wrapper for libnfc Library</Description>
     <PackageLicenseUrl>http://nfc-tools.org/index.php/GNU_Lesser_General_Public_License</PackageLicenseUrl>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <PackageTags>libnfc native</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)..\Content\**\*.dll">
       <PackagePath>%(RecursiveDir)%(FileName)%(Extension)</PackagePath>
+      <Pack>true</Pack>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)..\Content\runtimes\libnfc.conf">
+      <PackagePath>runtimes</PackagePath>
       <Pack>true</Pack>
     </Content>
     <Content Include="build\ManagedLibnfc.targets">
