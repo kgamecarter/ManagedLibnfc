@@ -17,6 +17,19 @@ namespace ManagedLibnfc
                 throw new Exception("Unable to init libnfc (malloc)");
         }
 
+        public List<string> ListDevices(int count = Libnfc.MaxUserDefinedDevices + 6)
+        {
+            IntPtr connectionStringsPointer = Marshal.AllocHGlobal(Libnfc.ConnectStringBufferSize * count);
+            var devicesCount = Libnfc.ListDevices(contextPointer, connectionStringsPointer, (uint)count);
+
+            var devices = new List<string>((int)devicesCount);
+            for (int i = 0; i < devicesCount; i++)
+                devices.Add(Marshal.PtrToStringAnsi(connectionStringsPointer + i * count));
+
+            Marshal.FreeHGlobal(connectionStringsPointer);
+            return devices;
+        }
+
         public virtual NfcDevice OpenDevice(string name = null)
         {
             IntPtr devicePointer;

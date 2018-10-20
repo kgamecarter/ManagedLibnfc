@@ -7,6 +7,11 @@ namespace ManagedLibnfc.PInvoke
 {
     public static class Libnfc
     {
+        public const int DeviceNameLength = 256;
+        public const int DevicePortLength = 64;
+        public const int MaxUserDefinedDevices = 4;
+        public const int ConnectStringBufferSize = 1024;
+
         /// <summary>
         /// Initialize libnfc.
         /// This function must be called before calling any other libnfc function
