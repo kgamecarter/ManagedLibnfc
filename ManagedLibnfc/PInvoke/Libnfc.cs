@@ -7,6 +7,7 @@ namespace ManagedLibnfc.PInvoke
 {
     public static class Libnfc
     {
+        public const string LibraryName = "libnfc";
         public const int DeviceNameLength = 256;
         public const int DevicePortLength = 64;
         public const int MaxUserDefinedDevices = 4;
@@ -17,7 +18,7 @@ namespace ManagedLibnfc.PInvoke
         /// This function must be called before calling any other libnfc function
         /// </summary>
         /// <param name="context">Output location for NfcContext</param>
-        [DllImport("libnfc", EntryPoint = "nfc_init", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(LibraryName, EntryPoint = "nfc_init", CallingConvention = CallingConvention.Cdecl)]
         public static extern void Init(out IntPtr context);
 
         /// <summary>
@@ -25,7 +26,7 @@ namespace ManagedLibnfc.PInvoke
         /// Should be called after closing all open devices and before your application terminates.
         /// </summary>
         /// <param name="context">The context to deinitialize</param>
-        [DllImport("libnfc", EntryPoint = "nfc_exit", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(LibraryName, EntryPoint = "nfc_exit", CallingConvention = CallingConvention.Cdecl)]
         public static extern void Exit(IntPtr context);
 
         /// <summary>
@@ -45,7 +46,7 @@ namespace ManagedLibnfc.PInvoke
         /// <param name="context">The context to operate on</param>
         /// <param name="connstring">The device connection string if specific device is wanted, null otherwise</param>
         /// <returns>Returns pointer to a NfcDevice struct if successfull; otherwise returns null value.</returns>
-        [DllImport("libnfc", EntryPoint = "nfc_open", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(LibraryName, EntryPoint = "nfc_open", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Open(IntPtr context, string connstring);
 
         /// <summary>
@@ -53,42 +54,42 @@ namespace ManagedLibnfc.PInvoke
         /// Initiator's selected tag is closed and the device, including allocated NfcDevice struct, is released.
         /// </summary>
         /// <param name="pnd">NfcDevice struct pointer that represent currently used device</param>
-        [DllImport("libnfc", EntryPoint = "nfc_close", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(LibraryName, EntryPoint = "nfc_close", CallingConvention = CallingConvention.Cdecl)]
         public static extern void Close(IntPtr pnd);
 
-        [DllImport("libnfc", EntryPoint = "nfc_list_devices", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(LibraryName, EntryPoint = "nfc_list_devices", CallingConvention = CallingConvention.Cdecl)]
         public static extern uint ListDevices(IntPtr context, IntPtr connstrings, uint connstrings_len);
 
-        [DllImport("libnfc", EntryPoint = "nfc_initiator_init", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(LibraryName, EntryPoint = "nfc_initiator_init", CallingConvention = CallingConvention.Cdecl)]
         public static extern int InitiatorInit(IntPtr pnd);
 
-        [DllImport("libnfc", EntryPoint = "nfc_perror", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(LibraryName, EntryPoint = "nfc_perror", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
         public static extern void Perror(IntPtr pnd, string s);
 
-        [DllImport("libnfc", EntryPoint = "nfc_device_get_name", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(LibraryName, EntryPoint = "nfc_device_get_name", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
         private static extern IntPtr _DeviceGetName(IntPtr pnd);
 
         public static string DeviceGetName(IntPtr pnd) => Marshal.PtrToStringAnsi(_DeviceGetName(pnd));
 
-        [DllImport("libnfc", EntryPoint = "nfc_device_set_property_bool", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(LibraryName, EntryPoint = "nfc_device_set_property_bool", CallingConvention = CallingConvention.Cdecl)]
         public static extern int DeviceSetPropertyBool(IntPtr pnd, NfcProperty property, bool bEnable);
 
-        [DllImport("libnfc", EntryPoint = "nfc_initiator_transceive_bytes", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(LibraryName, EntryPoint = "nfc_initiator_transceive_bytes", CallingConvention = CallingConvention.Cdecl)]
         public static extern int InitiatorTransceiveBytes(IntPtr pnd, byte[] pbtTx, uint szTx, byte[] pbtRx, uint szRx, int timeout);
 
-        [DllImport("libnfc", EntryPoint = "nfc_initiator_transceive_bits", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(LibraryName, EntryPoint = "nfc_initiator_transceive_bits", CallingConvention = CallingConvention.Cdecl)]
         public static extern int InitiatorTransceiveBits(IntPtr pnd, byte[] pbtTx, uint szTxBits, byte[] pbtTxPar, byte[] pbtRx, uint szRx, byte[] pbtRxPar);
 
-        [DllImport("libnfc", EntryPoint = "nfc_initiator_transceive_bytes_timed", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(LibraryName, EntryPoint = "nfc_initiator_transceive_bytes_timed", CallingConvention = CallingConvention.Cdecl)]
         public static extern int InitiatorTransceiveBytesTimed(IntPtr pnd, byte[] pbtTx, uint szTx, byte[] pbtRx, uint szRx, ref uint cycles);
 
-        [DllImport("libnfc", EntryPoint = "nfc_initiator_transceive_bits_timed", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(LibraryName, EntryPoint = "nfc_initiator_transceive_bits_timed", CallingConvention = CallingConvention.Cdecl)]
         public static extern int InitiatorTransceiveBitsTimed(IntPtr pnd, byte[] pbtTx, uint szTxBits, byte[] pbtTxPar, byte[] pbtRx, uint szRx, byte[] pbtRxPar, ref uint cycles);
 
-        [DllImport("libnfc", EntryPoint = "iso14443a_crc_append", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(LibraryName, EntryPoint = "iso14443a_crc_append", CallingConvention = CallingConvention.Cdecl)]
         public static extern void Iso14443aCrcAppend(byte[] pbtData, uint szLen);
 
-        [DllImport("libnfc", EntryPoint = "nfc_version", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(LibraryName, EntryPoint = "nfc_version", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
         private static extern IntPtr _Version();
 
         /// <summary>
